@@ -27,6 +27,11 @@ https://user-images.githubusercontent.com/60443583/172909512-52603d39-117b-48e9-
 
 > *makematerial from + file path* takes a path to a .txt to create a material with the referenced features.
 
+![Screenshot 10_05_2022 11_20_09](https://user-images.githubusercontent.com/60443583/172909976-7ce05fe8-9fc4-4be8-bc1a-3678ed588492.png)
+
+**You can access material .txt templates on the MaterialTemplates directory.**
+
+
 
 
 
