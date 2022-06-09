@@ -17,11 +17,17 @@ makematerial from + file path
 * **TextureModified**: material with **texture**, **base color** and **offset/scale texture modifiers**.
 ![GeoFactory - Unreal Editor 10_05_2022 11_13_53](https://user-images.githubusercontent.com/60443583/172909133-9fe36a37-202b-4e63-82ae-5311701df571.png)
 * **Animated**: material with **texture animated offsets**.
-https://user-images.githubusercontent.com/60443583/172909183-dde7f670-0e24-4f7c-9bd1-38ab46f82655.mp4
+
+https://user-images.githubusercontent.com/60443583/172913141-8e1f5366-98c1-4d9f-b859-bd9c6c176d6c.mov
+
 * **Glow**: material with **emissive** editable parameters, such as Glow **Color**, **Power** and **Speed**.
-https://user-images.githubusercontent.com/60443583/172909468-9149fe3b-7941-475f-b94d-6004749e5c2a.mp4
+
+https://user-images.githubusercontent.com/60443583/172913163-8a376e47-fd02-418f-984b-da0550aeefa1.mov
+
 * **Pulse**: material with **Pixel Offsets dynamic modification** making the mesh pulsing at **Speed Parameter** rate.
-https://user-images.githubusercontent.com/60443583/172909512-52603d39-117b-48e9-8a8c-4a4ff70a5ed1.mp4
+
+https://user-images.githubusercontent.com/60443583/172913154-cc7ece5b-8236-4f68-ac9d-01b1a5fe69cd.mov
+
 
 **Patterns are independets and can be composed as you like.**
 
@@ -30,6 +36,10 @@ https://user-images.githubusercontent.com/60443583/172909512-52603d39-117b-48e9-
 ![Screenshot 10_05_2022 11_20_09](https://user-images.githubusercontent.com/60443583/172909976-7ce05fe8-9fc4-4be8-bc1a-3678ed588492.png)
 
 **You can access material .txt templates on the MaterialTemplates directory.**
+
+
+
+
 
 
 
