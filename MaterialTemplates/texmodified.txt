@@ -1,0 +1,2 @@
+color 255 255 255 255
+texture default 2 2 0.2 0.2

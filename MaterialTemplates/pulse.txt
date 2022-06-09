@@ -1,0 +1,3 @@
+color 0 255 0 255
+texture default 1 1 0 0
+pulse true 1
