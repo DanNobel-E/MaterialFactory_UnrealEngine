@@ -64,35 +64,20 @@ void FMyPluginModule::PopulateContentBrowser(FMenuBuilder& MenuBuilder, const TA
 
 	MenuBuilder.BeginSection(FName("FirstSection"), FText::FromString("FirstSectionMenu"));
 	MenuBuilder.AddMenuEntry(FText::FromString("MyAction"), FText::FromString("Do first action!"), FSlateIcon(), FUIAction(FExecuteAction::CreateRaw(this, &FMyPluginModule::ModifyTexture, Data)));
-	/*FString Msg = FString("Second Message Action");
-	MenuBuilder.AddMenuEntry(FText::FromString("SecondAction"), FText::FromString("Do another action!"), FSlateIcon(), FUIAction(FExecuteAction::CreateRaw(this, &FOpenWindowPluginModule::PrintStringAction, Msg)));
-	MenuBuilder.AddMenuEntry(FText::FromString("TiredOfActions"), FText::FromString("Boring!"), FSlateIcon(), FUIAction());
-	MenuBuilder.AddMenuEntry(FText::FromString("NoMoreAction"), FText::FromString("Please Stop!"), FSlateIcon(), FUIAction());
-	MenuBuilder.AddSeparator();
-	MenuBuilder.AddMenuEntry(FText::FromString("HereWeGoAgain"), FText::FromString("Stop it, i'm serious!"), FSlateIcon(), FUIAction());*/
 	MenuBuilder.EndSection();
 }
 
 TSharedRef<FExtender> FMyPluginModule::GenerateActorMenu(const TSharedRef<FUICommandList> CommandList, const TArray<AActor*> Actors)
 {
 	TSharedRef<FExtender> Extender = MakeShared<FExtender>();
-	// controllo posizione ottimale per annullare tutto il menu.
-	// NOTA: PRECLUDE LA POSSIBILITA' DI GESTIONE DI EVENTUALI SOTTO MENU'
-	//for (AActor* Actor : Actors)
-	//{
-	//	if (!Actor->IsA<AStaticMeshActor>())
-	//	{
-	//		return Extender;
-	//	}
-	//}
+
 	Extender->AddMenuExtension(FName("ActorAsset"), EExtensionHook::After, CommandList, FMenuExtensionDelegate::CreateRaw(this, &FMyPluginModule::PopolateMenuBar, Actors));
 	return Extender;
 }
 
 void FMyPluginModule::ShutdownModule()
 {
-	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
-	// we call this function before unloading the module.
+	
 }
 
 void FMyPluginModule::CreateMenuBar(FMenuBarBuilder& MenuBarBuilder)
@@ -173,64 +158,6 @@ void FMyPluginModule::PrintStringFromMenuBar(const FString Msg)
 
 bool FMyPluginModule::Exec(UWorld* InWorld, const TCHAR* Cmd, FOutputDevice& Ar)
 {
-	if (FParse::Command(&Cmd, TEXT("newlevel")))
-	{
-
-		FString Path= FParse::Token(Cmd, true);
-
-		UBlueprint* Blueprint = LoadObject<UBlueprint>(nullptr, *Path);
-
-		UStaticMesh* Mesh = LoadObject<UStaticMesh>(nullptr, *Path);
-
-		UWorldFactory* NewWorldFactory = NewObject<UWorldFactory>();
-		// in "prod": controllare che asset non esista...
-
-		uint64 SuffixAssetName = FPlatformTime::Cycles64();
-		FString AssetName = FString::Printf(TEXT("W_Dummy_%llu"), SuffixAssetName);
-		UPackage* Package = CreatePackage(*FString::Printf(TEXT("/Game/%s"), *AssetName));
-
-		UObject* NewWorldObject = NewWorldFactory->FactoryCreateNew(NewWorldFactory->SupportedClass, Package, *AssetName, EObjectFlags::RF_Standalone | EObjectFlags::RF_Public, nullptr, GWarn);
-		FAssetRegistryModule::AssetCreated(NewWorldObject);
-
-		UWorld* World = Cast<UWorld>(NewWorldObject);
-
-		// inizio transazione sul materiale
-		World->Modify();
-
-		FTransform Transform;
-		FVector Vector;
-
-		if (Blueprint)
-		{
-			if (Blueprint->GeneratedClass->IsChildOf<AActor>())
-			{
-				for (size_t Index = 0; Index < 5; Index++)
-				{
-					Vector.Z += Index * 100;
-					Transform.AddToTranslation(Vector);
-					AActor* Actor = World->SpawnActor<AActor>(Blueprint->GeneratedClass);
-					if (Actor->GetRootComponent())
-					{
-						Actor->SetActorTransform(Transform);
-					}
-					/*Actor->SetActorTransform(Transform);
-					Actor->GetStaticMeshComponent()->SetStaticMesh(Mesh);*/
-			
-
-				}
-		
-				
-			}
-		}
-
-	
-		World->PostEditChange();
-		World->MarkPackageDirty();
-
-		
-		return true;
-	}
-
 
 	if (FParse::Command(&Cmd, TEXT("newmaterial")))
 	{
@@ -259,9 +186,9 @@ bool FMyPluginModule::Exec(UWorld* InWorld, const TCHAR* Cmd, FOutputDevice& Ar)
 		MaterialMulplier->ConstB = 2;
 		MaterialMulplier->MaterialExpressionEditorX = -200;
 
-		MaterialCasted->BaseColor.Expression = MaterialMulplier;	// collegamento dei nodi
-		MaterialCasted->Expressions.Add(VectorParameter);		// aggiunta del parametro al materiale
-		MaterialCasted->Expressions.Add(MaterialMulplier);		// aggiunta del parametro al materiale
+		MaterialCasted->BaseColor.Expression = MaterialMulplier;
+		MaterialCasted->Expressions.Add(VectorParameter);		
+		MaterialCasted->Expressions.Add(MaterialMulplier);		
 
 		MaterialCasted->PostEditChange();
 		MaterialCasted->MarkPackageDirty();
